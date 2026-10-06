@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"context"
 )
 
 type RegisterRequest struct {
@@ -23,7 +24,7 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&req)
 
 	if err != nil {
-		http.Error(w, "Invalid request body", http.StatusBadRequest)
+		http.Error(w, "Invalid request body, Please try registering again", http.StatusBadRequest)
 		return
 	}
 
@@ -44,6 +45,14 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+
+	conn := connectDB()
+
+	if conn == nil {
+		return
+	}
+
+	defer conn.Close(context.Background())
 
 	http.HandleFunc("/health", healthHandler)
 	http.HandleFunc("/auth/register", registerHandler)
