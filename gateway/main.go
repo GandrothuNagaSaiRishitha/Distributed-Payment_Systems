@@ -7,6 +7,8 @@ import (
 	"net/url"
 )
 
+//Validate the jwt of the client.
+
 func main() {
 	authURL, err := url.Parse("http://localhost:8081")
 	if err != nil {
@@ -25,4 +27,3 @@ func main() {
 		fmt.Println("Gateway error:", err)
 	}
 }
-
