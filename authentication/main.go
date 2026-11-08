@@ -1,10 +1,11 @@
+// writing the registered user's data in thr database
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"context"
 )
 
 type RegisterRequest struct {
